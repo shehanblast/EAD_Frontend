@@ -50,11 +50,6 @@ public class InsertUserQueue extends AppCompatActivity {
         queueId = getIntent().getStringExtra("queueId");
         btn2 = findViewById(R.id.btnAddQueueDataExit);
 
-        System.out.println("---------------------------");
-        System.out.println("qid" + queueId);
-        System.out.println("id" + id);
-        System.out.println("---------------------------");
-
         handleSSLHandshake();
 
         getYourTimeValue();
@@ -74,9 +69,24 @@ public class InsertUserQueue extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                String url = "https://192.168.1.5:4432/api/queue/vehicleQueue/" + queueId;
-                String obj = "{'queueDepartureTime': '" + java.time.LocalDateTime.now() + "'}";
+                String url = "https://192.168.1.5:44323/api/queue/vehicleQueue/" + queueId;
+//                String obj = "{'queueDepartureTime': '" + "2022-10-28T17:19:38.731Z" + "'}";
+//                String obj = "{'StationId': '" +
+//                        station +
+//                        "', 'customerId': '" +
+//                        id +
+//                        "','veihicleModel': '" +
+//                        "car" +
+//                        "','queueArrivalTime': '" +
+//                        java.time.LocalDateTime.now() +
+//                        "','queueDepartureTime': '" +
+//                        java.time.LocalDateTime.now() +
+//                        "' }";
+                String obj = "{ 'queueDepartureTime': '" +
+                        java.time.LocalDateTime.now() +
+                        "' }";
 
+                System.out.println(java.time.LocalDateTime.now());
                 JSONObject jsonObject = null;
                 try {
                     jsonObject = new JSONObject(obj);
@@ -84,10 +94,9 @@ public class InsertUserQueue extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                JsonObjectRequest jsonObjectRequest =  new JsonObjectRequest(Request.Method.PUT, url, jsonObject, new Response.Listener<JSONObject>() {
+                JsonObjectRequest jsonObjectRequest =  new JsonObjectRequest(Request.Method.PATCH, url, jsonObject, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        System.out.println(response.toString());
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -105,7 +114,7 @@ public class InsertUserQueue extends AppCompatActivity {
     //get queue details according to user
     private void getYourTimeValue() {
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://192.168.1.5:4432/api/queue/vehicleQueue/GetOneQueueCustomer/" + id;
+        String url = "https://192.168.1.5:44323/api/queue/vehicleQueue/FetchQueueArrivalTime/" + queueId;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -129,7 +138,6 @@ public class InsertUserQueue extends AppCompatActivity {
             public void onResponse(String response) {
 
                 text2.setText(response.toString());
-                System.out.println(response.toString());
             }
         }, new Response.ErrorListener() {
             @Override
