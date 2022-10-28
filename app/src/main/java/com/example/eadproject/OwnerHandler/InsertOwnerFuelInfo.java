@@ -29,6 +29,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
 /*
  *  This is Insert fuel details class
  * */
@@ -85,6 +97,12 @@ public class InsertOwnerFuelInfo extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 finishStatus = adapterView.getItemAtPosition(i).toString();
+                System.out.println(finishStatus);
+                if(finishStatus.equals("Yes")){
+                    status = true;
+                }else{
+                    status = false;
+                }
             }
 
             @Override
@@ -170,6 +188,8 @@ public class InsertOwnerFuelInfo extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), OwnerPanel.class);
+                intent.putExtra("email", email);
+                intent.putExtra("id", id);
                 startActivity(intent);
             }
         });
@@ -178,16 +198,89 @@ public class InsertOwnerFuelInfo extends AppCompatActivity {
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), EditFuelInfo.class);
+                Intent intent = new Intent(getApplicationContext(), ViewAllFuelDetails.class);
+                intent.putExtra("email", email);
+                intent.putExtra("id", id);
                 startActivity(intent);
             }
         });
-
         editTextStationName.setEnabled(false);
         getEditTextStationNo.setEnabled(false);
 
-        loadData();
+        arrivalTime.setEnabled(false);
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
+        LocalDateTime now = LocalDateTime.now();
+        String time = dtf.format(now);
+        arrivalTime.setText(time);
+        //loadData();
     }
+
+    //This is the handle  SSL Handshake Function
+    @SuppressLint("TrulyRandom")
+    public static void handleSSLHandshake() {
+        try {
+            TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
+                public X509Certificate[] getAcceptedIssuers() {
+                    return new X509Certificate[0];
+                }
+
+                @Override
+                public void checkClientTrusted(X509Certificate[] certs, String authType) {
+                }
+
+                @Override
+                public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                }
+            }};
+
+            SSLContext sc = SSLContext.getInstance("SSL");
+            sc.init(null, trustAllCerts, new SecureRandom());
+            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
+                @Override
+                public boolean verify(String arg0, SSLSession arg1) {
+                    return true;
+                }
+            });
+        } catch (Exception ignored) {
+        }
+    }
+//    @RequiresApi(api = Build.VERSION_CODES.O)
+//    private void AddingData() {
+//        System.out.println("inside on click");
+//        String url3 = "https://192.168.202.134:44323/api/fuel/FuelDetails";
+//        String obj = "{'StationId': '" + stationId1 + "', 'FuelName': '" + fuelType + "','FuelArrivalTime': '" + java.time.LocalDateTime.now() + "','FuelFinish': " + status + " }";
+//
+//        System.out.println(obj);
+//        JSONObject jsonObject = null;
+//        try {
+//            jsonObject = new JSONObject(obj);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        String stationIdnew = editTextStationName.getText().toString();
+//        checkData(stationIdnew);
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url3, jsonObject, new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//                try {
+//                    stationId = response.getString("stationId").toString();
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                Toast.makeText(AddFuelDetailsOwner.this, "Adding Successfully", Toast.LENGTH_SHORT).show();
+//                System.out.println(response.toString());
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError volleyError) {
+//                System.out.println(volleyError.toString());
+//            }
+//        });
+//        requestQueue1.add(jsonObjectRequest);
+//    }
+
 
     //get detail of a single fuel station
     private void checkData(String stationIdNew) {

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    tools:context=".OwnerHandler.ViewAllFuelDetails">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="150dp"
+        android:layout_gravity="center"
+        android:layout_height="150dp"
+        android:layout_marginTop="4dp"
+        app:srcCompat="@drawable/logo3" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif-black"
+        android:text="View All Fuel Details"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/darkblue"
+        android:textSize="30dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center"
+        android:background="@color/darkblue"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fuelList"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="380dp" />
+
+    <Button
+        android:id="@+id/btnBackViewAll"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Back"
+        android:textColor="#EDE8E8"/>
+</LinearLayout>
