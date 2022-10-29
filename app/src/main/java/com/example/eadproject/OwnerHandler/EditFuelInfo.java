@@ -57,13 +57,13 @@ public class EditFuelInfo extends AppCompatActivity {
         setContentView(R.layout.activity_update_fuel_details);
 
         //assign the ids
-        FuelType = findViewById(R.id.spinnerUpdateFuelTypeOwner);
-        spinnerFinish = findViewById(R.id.spinnerUpdateFuelFinishStatusOwner);
-        button = findViewById(R.id.btnUpdateFuel);
-        back = findViewById(R.id.btnBackUpdateFuel);
-        editName = findViewById(R.id.textUpdateFuelStationOwner);
-        editStationNo = findViewById(R.id.textUpdateFuelStationNoOwner);
-        editArrivalTime = findViewById(R.id.textUpdateFuelStationArrivalTimeOwner);
+        FuelType = findViewById(R.id.ddUpdateFuelTypeOwner);
+   //     spinnerFinish = findViewById(R.id.ddUpdateFuelFinishStatusOwner);
+       // button = findViewById(R.id.btnUpdateFuelDetails);
+        back = findViewById(R.id.btnBackUpdateFuelDetails);
+        editName = findViewById(R.id.txtUpdateFuelStationOwner);
+//        editStationNo = findViewById(R.id.txtUpdateFuelStationNoOwner);
+        editArrivalTime = findViewById(R.id.txtUpdateFuelStationArrivalTimeOwner);
         textView = findViewById(R.id.fuelStatusUpdate);
 
         StationId = getIntent().getStringExtra("StationId");
@@ -72,50 +72,54 @@ public class EditFuelInfo extends AppCompatActivity {
         fuelName = getIntent().getStringExtra("fuelName");
         email = getIntent().getStringExtra("email");
 
-        //declare the spinner for fuel
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.fuelType, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerFuelType.setAdapter(adapter);
 
-        //voley library
+        //declare the spinner for fuel
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.fuelType, android.R.layout.simple_spinner_item);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinnerFuelType.setAdapter(adapter);
+//
+//        //voley library
+//        requestQueue1 = Volley.newRequestQueue(getApplicationContext());
+//
+//        //add fuel details into a spinner
+//        spinnerFuelType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                fuelType = adapterView.getItemAtPosition(i).toString();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
+
+                //voley library
         requestQueue1 = Volley.newRequestQueue(getApplicationContext());
 
-        //add fuel details into a spinner
-        spinnerFuelType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                fuelType = adapterView.getItemAtPosition(i).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
         //fuel finish details spinner
-        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.finishType, android.R.layout.simple_spinner_item);
-        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerFinish.setAdapter(adapter1);
-
-        //add data to the spinner
-        spinnerFinish.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                finishStatus = adapterView.getItemAtPosition(i).toString();
-                System.out.println(finishStatus);
-                if(finishStatus.equals("Yes")){
-                    status = true;
-                }else{
-                    status = false;
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
+//        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.finishType, android.R.layout.simple_spinner_item);
+//        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinnerFinish.setAdapter(adapter1);
+//
+//        //add data to the spinner
+//        spinnerFinish.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                finishStatus = adapterView.getItemAtPosition(i).toString();
+//                System.out.println(finishStatus);
+//                if(finishStatus.equals("Yes")){
+//                    status = true;
+//                }else{
+//                    status = false;
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
 
         //call handle SSL handshake
         handleSSLHandshake();
@@ -125,12 +129,13 @@ public class EditFuelInfo extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), OwnerPanel.class);
+                intent.putExtra("email", email);
                 startActivity(intent);
             }
         });
 
         editName.setEnabled(false);
-        editStationNo.setEnabled(false);
+//        editStationNo.setEnabled(false);
 
         editArrivalTime.setEnabled(false);
 
@@ -150,22 +155,26 @@ public class EditFuelInfo extends AppCompatActivity {
 
 
         //fetch all FuelStation Details
-        System.out.println("inside on click");
-        String url = "https://192.168.1.5:44323/api/fuelStation/FuelStation";
+        String url = "https://192.168.1.5:44323/api/fuelStation/FuelStation/FetchStationAccordingtoOwnerId?ownerId="+email;
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 try {
-                    for (int i = 0; i < response.length(); i++) {
-                        JSONObject object = response.getJSONObject(i);
-                        String obj = object.getString("ownerId");
-                        if (email.equals(obj)) {
-                            String name = object.getString("OwnerId");
-                            String stationNo = object.getString("stationNo");
-                            editName.setText(name);
-                            editStationNo.setText(stationNo);
-                        }
-                    }
+                    JSONObject object = response.getJSONObject(0);
+                    String obj = object.getString("stationName");
+                    editName.setText(obj);
+
+
+//                    for (int i = 0; i < response.length(); i++) {
+//                        JSONObject object = response.getJSONObject(i);
+//                        String obj = object.getString("ownerId");
+//                        if (email.equals(obj)) {
+//                            String name = object.getString("OwnerId");
+//                            String stationNo = object.getString("stationNo");
+//                            editName.setText(name);
+//                            editStationNo.setText(stationNo);
+//                        }
+//                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -181,42 +190,42 @@ public class EditFuelInfo extends AppCompatActivity {
         requestQueue.add(jsonArrayRequest);
 
         //update fuel details
-        button.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onClick(View view) {
-                System.out.println("inside on click");
-                String url = "https://192.168.1.5:44323/api/fuelInfo/FuelDetails/" + email;
-                String obj = "{'StationId': '" +
-                        editName.getText().toString() +
-                        "', 'FuelName': '" +
-                        fuelType +
-                        "','FuelArrivalTime': '" +
-                        java.time.LocalDateTime.now() +
-                        "','FuelFinish': " +
-                        status + " }";
-                JSONObject jsonObject = null;
-                try {
-                    jsonObject = new JSONObject(obj);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                JsonObjectRequest jsonObjectRequest =  new JsonObjectRequest(Request.Method.PUT, url, jsonObject, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        System.out.println(volleyError.toString());
-                    }
-                });
-
-                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                requestQueue.add(jsonObjectRequest);
-            }
-        });
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @RequiresApi(api = Build.VERSION_CODES.O)
+//            @Override
+//            public void onClick(View view) {
+//                System.out.println("inside on click");
+//                String url = "https://192.168.1.5:44323/api/fuelInfo/FuelDetails/" + email;
+//                String obj = "{'StationId': '" +
+//                        editName.getText().toString() +
+//                        "', 'FuelName': '" +
+//                        fuelType +
+//                        "','FuelArrivalTime': '" +
+//                        java.time.LocalDateTime.now() +
+//                        "','FuelFinish': " +
+//                        status + " }";
+//                JSONObject jsonObject = null;
+//                try {
+//                    jsonObject = new JSONObject(obj);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                JsonObjectRequest jsonObjectRequest =  new JsonObjectRequest(Request.Method.PUT, url, jsonObject, new Response.Listener<JSONObject>() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                    }
+//                }, new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError volleyError) {
+//                        System.out.println(volleyError.toString());
+//                    }
+//                });
+//
+//                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+//                requestQueue.add(jsonObjectRequest);
+//            }
+//        });
 
 
 

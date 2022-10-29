@@ -58,6 +58,7 @@ public class FuelStation extends AppCompatActivity {
         email = getIntent().getStringExtra("email");
         id = getIntent().getStringExtra("id");
 
+        System.out.println("ckmail---------"+id);
         //add ids
         stationSpinner = findViewById(R.id.ddFuelStationCity);
         button = findViewById(R.id.btnFuelStationNext);
@@ -114,6 +115,35 @@ public class FuelStation extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(jsonArrayRequest);
+
+        String url1 = "https://192.168.1.5:44323/api/fuelStation/FuelStation/FetchStationAccordingtoOwnerId?ownerId="+email;
+        JsonArrayRequest jsonArrayRequest1 = new JsonArrayRequest(Request.Method.GET, url1, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                res = response.toString();
+                System.out.println("check-----------" +res);
+
+//                try {
+//                    for (int i = 0; i < response.length(); i++) {
+//                        JSONObject object = response.getJSONObject(i);
+//                        String obj = object.getString("town");
+//                        townArray.add(obj);
+//                        System.out.println(townArray);
+//                    }
+//
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                System.out.println(volleyError);
+            }
+        });
+
+        requestQueue.add(jsonArrayRequest1);
 
         typeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -202,15 +232,58 @@ public class FuelStation extends AppCompatActivity {
         if(station1.equals("") || station1.equals(null) || fuelType1.equals("") || fuelType1.equals(null) || city1.equals(null) || fuelType1.matches("Choose")){
             Toast.makeText(this, "Please Select the items", Toast.LENGTH_SHORT).show();
         }else{
-            Intent intent = new Intent(getApplicationContext(), ShowQueueTotal.class);
-            intent.putExtra("city", city1);
-            intent.putExtra("email", email);
-            intent.putExtra("id", id);
-            intent.putExtra("station",station1);
-            intent.putExtra("fuelType", fuelType1);
-            startActivity(intent);
+//            Intent intent = new Intent(getApplicationContext(), ShowQueueTotal.class);
+//            intent.putExtra("city", city1);
+//            intent.putExtra("email", email);
+//            intent.putExtra("id", id);
+//            intent.putExtra("station",station1);
+//            intent.putExtra("fuelType", fuelType1);
+//            startActivity(intent);
+            checkFuelDetailsforStation(station1, email, id, fuelType1, city1);
         }
     }
+    private void checkFuelDetailsforStation(String station, String email, String id, String fuelType, String city) {
+        System.out.println("inside on click");
+        String url = "https://192.168.1.5:44323/api/fuelStation/FuelStation";
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                System.out.println(response.toString());
+//                res = response.toString();
+
+                try {
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject object = response.getJSONObject(i);
+                        String obj = object.getString("stationName");
+                        if (station.equals(obj)) {
+                            String stationId = object.getString("stationId");
+                            System.out.println(stationId);
+//                            String stationName = object.getString("name");
+//                            LoadFuelDetails(stationId, email, id, fuelType, city, stationName);
+                            Intent intent = new Intent(getApplicationContext(), ShowQueueTotal.class);
+                            intent.putExtra("city", city);
+                            intent.putExtra("email", email);
+                            intent.putExtra("id", id);
+                            intent.putExtra("station",stationId);
+                            intent.putExtra("fuelType", fuelType);
+                            startActivity(intent);
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                System.out.println(volleyError.toString());
+            }
+        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(jsonArrayRequest);
+    }
+
 
     //SSL handshake
     @SuppressLint("TrulyRandom")

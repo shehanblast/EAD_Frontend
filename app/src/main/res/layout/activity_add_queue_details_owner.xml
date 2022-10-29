@@ -64,32 +64,32 @@
                     android:textColor="@color/black" />
             </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:text="Station No"
-                android:textSize="20dp"
-                android:textAlignment="textStart"
-                android:textColor="@color/black" />
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:text="Station No"-->
+<!--                android:textSize="20dp"-->
+<!--                android:textAlignment="textStart"-->
+<!--                android:textColor="@color/black" />-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_margin="10dp"
-                android:orientation="horizontal">
-                <EditText
-                    android:id="@+id/txtAddFuelStationNoOwner"
-                    android:layout_width="373dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/round_border"
-                    android:hint="Station No"
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:layout_margin="10dp"-->
+<!--                android:orientation="horizontal">-->
+<!--                <EditText-->
+<!--                    android:id="@+id/txtAddFuelStationNoOwner"-->
+<!--                    android:layout_width="373dp"-->
+<!--                    android:layout_height="60dp"-->
+<!--                    android:background="@drawable/round_border"-->
+<!--                    android:hint="Station No"-->
 
-                    android:textAlignment="textStart"
-                    android:textColor="@color/black" />
-            </LinearLayout>
+<!--                    android:textAlignment="textStart"-->
+<!--                    android:textColor="@color/black" />-->
+<!--            </LinearLayout>-->
 
             <TextView
                 android:layout_width="match_parent"
@@ -174,7 +174,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:text="Add"
+                android:text="Add/UPDATE"
                 android:textColor="#EDE8E8"
                 android:textSize="18sp"/>
 
@@ -186,7 +186,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="10dp"
-                android:text="Update"
+                android:text="View Fuel details"
                 android:textColor="#EDE8E8"
                 android:textSize="18sp"/>
 

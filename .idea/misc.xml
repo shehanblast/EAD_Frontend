@@ -41,22 +41,23 @@
         <entry key="..\:/SLIIT Assignments/EAD/EADProY&amp;B/EADProject/app/src/main/res/layout/activity_view_length_queue.xml" value="0.2" />
         <entry key="..\:/Users/binuk/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_spinner_dropdown_item.xml" value="0.3625" />
         <entry key="..\:/Users/binuk/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_spinner_item.xml" value="0.3625" />
-        <entry key="..\:/Users/binuk/Desktop/EADSS/EADProject-20221026T130238Z-001/EADProject/app/src/main/res/layout/activity_add_queue_details_owner.xml" value="0.3625" />
-        <entry key="..\:/Users/binuk/Desktop/EADSS/EADProject-20221026T130238Z-001/EADProject/app/src/main/res/layout/activity_add_user_queue_details.xml" value="0.3625" />
+        <entry key="..\:/Users/binuk/Desktop/EADSS/EADProject-20221026T130238Z-001/EADProject/app/src/main/res/layout/activity_add_queue_details_owner.xml" value="0.264" />
+        <entry key="..\:/Users/binuk/Desktop/EADSS/EADProject-20221026T130238Z-001/EADProject/app/src/main/res/layout/activity_add_user_queue_details.xml" value="0.2" />
         <entry key="..\:/Users/binuk/Desktop/EADSS/EADProject-20221026T130238Z-001/EADProject/app/src/main/res/layout/activity_dashboard.xml" value="0.3625" />
-        <entry key="..\:/Users/binuk/Desktop/EADSS/EADProject-20221026T130238Z-001/EADProject/app/src/main/res/layout/activity_fuel_station.xml" value="0.1" />
+        <entry key="..\:/Users/binuk/Desktop/EADSS/EADProject-20221026T130238Z-001/EADProject/app/src/main/res/layout/activity_fuel_station.xml" value="0.264" />
         <entry key="..\:/Users/binuk/Desktop/EADSS/EADProject-20221026T130238Z-001/EADProject/app/src/main/res/layout/activity_login.xml" value="0.3625" />
         <entry key="..\:/Users/binuk/Desktop/EADSS/EADProject-20221026T130238Z-001/EADProject/app/src/main/res/layout/activity_main.xml" value="0.3625" />
         <entry key="..\:/Users/binuk/Desktop/EADSS/EADProject-20221026T130238Z-001/EADProject/app/src/main/res/layout/activity_owner_dashboard.xml" value="0.3625" />
         <entry key="..\:/Users/binuk/Desktop/EADSS/EADProject-20221026T130238Z-001/EADProject/app/src/main/res/layout/activity_owner_profile.xml" value="0.3625" />
         <entry key="..\:/Users/binuk/Desktop/EADSS/EADProject-20221026T130238Z-001/EADProject/app/src/main/res/layout/activity_register.xml" value="0.3625" />
-        <entry key="..\:/Users/binuk/Desktop/EADSS/EADProject-20221026T130238Z-001/EADProject/app/src/main/res/layout/activity_update_fuel_details.xml" value="0.3625" />
+        <entry key="..\:/Users/binuk/Desktop/EADSS/EADProject-20221026T130238Z-001/EADProject/app/src/main/res/layout/activity_update_fuel_details.xml" value="0.2" />
         <entry key="..\:/Users/binuk/Desktop/EADSS/EADProject-20221026T130238Z-001/EADProject/app/src/main/res/layout/activity_user_profile.xml" value="0.3625" />
         <entry key="..\:/Users/binuk/Desktop/EADSS/EADProject-20221026T130238Z-001/EADProject/app/src/main/res/layout/activity_user_view_queue_all_details.xml" value="0.3625" />
-        <entry key="..\:/Users/binuk/Desktop/EADSS/EADProject-20221026T130238Z-001/EADProject/app/src/main/res/layout/activity_view_all_fuel_details.xml" value="0.1" />
+        <entry key="..\:/Users/binuk/Desktop/EADSS/EADProject-20221026T130238Z-001/EADProject/app/src/main/res/layout/activity_view_all_fuel_details.xml" value="0.264" />
         <entry key="..\:/Users/binuk/Desktop/EADSS/EADProject-20221026T130238Z-001/EADProject/app/src/main/res/layout/activity_view_fuel_details.xml" value="0.33" />
         <entry key="..\:/Users/binuk/Desktop/EADSS/EADProject-20221026T130238Z-001/EADProject/app/src/main/res/layout/activity_view_fuel_station_details.xml" value="0.25" />
-        <entry key="..\:/Users/binuk/Desktop/EADSS/EADProject-20221026T130238Z-001/EADProject/app/src/main/res/layout/activity_view_length_queue.xml" value="0.33" />
+        <entry key="..\:/Users/binuk/Desktop/EADSS/EADProject-20221026T130238Z-001/EADProject/app/src/main/res/layout/activity_view_length_queue.xml" value="0.2" />
+        <entry key="..\:/Users/binuk/Desktop/EADSS/EADProject-20221026T130238Z-001/EADProject/app/src/main/res/layout/single_fuel_details.xml" value="0.1" />
       </map>
     </option>
   </component>

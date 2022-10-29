@@ -47,27 +47,24 @@ public class ViewAllFuelDetails extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), OwnerDashboard.class);
+                Intent intent = new Intent(getApplicationContext(), OwnerPanel.class);
                 intent.putExtra("email", email);
                 startActivity(intent);
             }
         });
         System.out.println("inside on click");
-        String url = "https://192.168.202.134:44323/api/station/FuelStation";
+        String url = "https://192.168.1.5:44323/api/fuelStation/FuelStation";
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                System.out.println("inside res");
-                System.out.println(response.toString());
-//                res = response.toString();
-
+                System.out.println("ViewAllFuelDetails" + " " +response.toString());
                 try {
                     for (int i = 0; i < response.length(); i++) {
                         JSONObject object = response.getJSONObject(i);
                         String obj = object.getString("ownerId");
                         if (email.equals(obj)) {
                             String stationId = object.getString("stationId");
-                            String stationName = object.getString("name");
+                            String stationName = object.getString("stationName");
                             String email = object.getString("ownerId");
                             System.out.println(stationId);
                             LoadRecycler(stationId,stationName,email);
@@ -93,23 +90,21 @@ public class ViewAllFuelDetails extends AppCompatActivity {
     private void LoadRecycler(String stationId, String station, String newemail) {
         System.out.println(stationId);
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://192.168.202.134:44323/api/fuel/FuelDetails/GetOneStation/" + stationId;
+        String url = "https://192.168.1.5:44323/api/fuelInfo/fuelInfo/FetchFuelInfoFromStation/" + stationId;
         JsonArrayRequest jsonArrayRequestStation = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                System.out.println("Station res");
-                System.out.println(response.toString());
+                System.out.println("LoadRecycler" + " " +response.toString());
                 try {
                     for (int i = 0; i < response.length(); i++) {
                         JSONObject object = response.getJSONObject(i);
-
                         Fuel fuel = new Fuel();
-                        fuel.setFuelId(object.getString("fdId").toString());
+                        fuel.setFuelId(object.getString("fuelInfoId").toString());
                         fuel.setStationId(stationId);
                         fuel.setStationName(station);
                         fuel.setEmail(newemail);
-                        fuel.setFuelType(object.getString("fuelName").toString());
-                        fuel.setFinishStatus((object.getBoolean("fuelFinish")));
+                        fuel.setFuelType(object.getString("type").toString());
+                        fuel.setFinishStatus((object.getBoolean("status")));
                         fuels.add(fuel);
                     }
                     recyclerView.setLayoutManager(new LinearLayoutManager(ViewAllFuelDetails.this));

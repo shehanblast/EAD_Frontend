@@ -25,6 +25,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.eadproject.UserHandler.Registration;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -65,17 +67,25 @@ public class InsertOwnerFuelInfo extends AppCompatActivity {
         btn2 = findViewById(R.id.btnBackAddFuel);
         btn3 = findViewById(R.id.btnUpdateFuelOwner);
         editTextStationName = findViewById(R.id.txtAddFuelStationOwner);
-        getEditTextStationNo = findViewById(R.id.txtAddFuelStationNoOwner);
+//        getEditTextStationNo = findViewById(R.id.txtAddFuelStationNoOwner);
         spinnerFuelType = findViewById(R.id.ddFuelTypeOwner);
         email = getIntent().getStringExtra("email");
         id = getIntent().getStringExtra("id");
+        System.out.println("email" + " " + email);
+        System.out.println("id" + " " + id);
         DB = new SQLHelper(this);
         spinnerFinish = findViewById(R.id.ddFuelFinishStatusOwner);
         btn1 = findViewById(R.id.btnAddFuelDetails);
+        arrivalTime = findViewById(R.id.txtAddFuelStationArrivalTimeOwner);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.fuelType, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerFuelType.setAdapter(adapter);
+
+        //this is request queue backend volley library
+        requestQueue1 = Volley.newRequestQueue(getApplicationContext());
+
+        handleSSLHandshake();
 
         spinnerFuelType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -112,24 +122,24 @@ public class InsertOwnerFuelInfo extends AppCompatActivity {
         });
 
         //get all fuel details
-        String url = "https://192.168.1.5:4432/api/fuelStation/FuelStation";
+        String url = "https://192.168.1.5:44323/api/fuelStation/FuelStation/FetchStationAccordingtoOwnerId?ownerId=" + email;
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+
+
                 try {
-                    for (int i = 0; i < response.length(); i++) {
-                        JSONObject object = response.getJSONObject(i);
-                        String obj = object.getString("ownerId");
-                        if (email.equals(obj)) {
-                            String name = object.getString("OwnerId");
-                            String stationNo = object.getString("stationNo");
-                            editTextStationName.setText(name);
-                            getEditTextStationNo.setText(stationNo);
-                        }
-                    }
+                    JSONObject object = response.getJSONObject(0);
+
+                    String name = object.getString("stationName");
+                    String sId = object.getString("stationId");
+                    stationId = sId;
+                    System.out.println("id-------"+sId);
+                    editTextStationName.setText(name);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -146,31 +156,91 @@ public class InsertOwnerFuelInfo extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                String url3 = "https://192.168.1.5:4432/api/fuelInfo/FuelDetails";
+
+                String url3 = "https://192.168.1.5:44323/api/fuelInfo/fuelInfo";
                 String obj = "{'StationId': '" +
-                        editTextStationName.getText().toString() +
-                        "', 'FuelName': '" +
-                        fuelType + "','FuelArrivalTime': '" +
+                        stationId +
+                        "', 'type': '" +
+                        fuelType +
+                        "','arrivalTime': '" +
                         java.time.LocalDateTime.now() +
-                        "','FuelFinish': " +
+                        "','status': " +
                         status +
                         " }";
                 ;
-                JSONObject jsonObject = null;
-                try {
-                    jsonObject = new JSONObject(obj);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                String stationIdnew = editTextStationName.getText().toString();
-                checkData(stationIdnew);
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url3, jsonObject, new Response.Listener<JSONObject>() {
+
+
+                //check wheather the fuel info already exists in the table
+                String url = "https://192.168.1.5:44323/api/fuelInfo/fuelInfo/FetchFuelInfoFromStationAndFuel?sId=" + editTextStationName.getText().toString() + "&fName=" + fuelType;
+                JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+                    boolean queueStatus = false;
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(JSONArray response) {
+                        System.out.println(response.toString());
                         try {
-                            stationId = response.getString("stationId").toString();
+                            JSONObject object = response.getJSONObject(0);
+
+                            System.out.println(object == null);
+                            if(object != null){
+                                //if exists update the arrival time
+                                String fid = object.getString("fuelInfoId");
+                                String url4 = "https://192.168.1.5:44323/api/fuelInfo/fuelInfo/updateArrivalTime/" + fid;
+                                String obj = "{'arrivalTime': '" + java.time.LocalDateTime.now() + "' }";
+
+                                JSONObject jsonObject = null;
+                                System.out.println("obj" + " " + obj);
+                                Toast.makeText(InsertOwnerFuelInfo.this,"Arrival time Updated!", Toast.LENGTH_LONG).show();
+                                try {
+                                    jsonObject = new JSONObject(obj);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                String stationIdnew = editTextStationName.getText().toString();
+
+                                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PATCH, url4, jsonObject, new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        try {
+                                            stationId = response.getString("stationId").toString();
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }, new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError volleyError) {
+                                        System.out.println(volleyError.toString());
+                                    }
+                                });
+                                requestQueue1.add(jsonObjectRequest);
+                                System.out.println("true path patch req" + " " + fid);
+                           }
+
                         } catch (JSONException e) {
-                            e.printStackTrace();
+                            //if it doesn't exixts add a new record
+                            JSONObject jsonObject = null;
+                                System.out.println("obj" + " " + obj);
+                            Toast.makeText(InsertOwnerFuelInfo.this,"New Fuel Info is Added!", Toast.LENGTH_LONG).show();
+                                try {
+                                    jsonObject = new JSONObject(obj);
+                                } catch (JSONException e1) {
+                                    e1.printStackTrace();
+                                }
+
+
+                                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url3, jsonObject, new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+
+                                    }
+                                }, new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError volleyError) {
+                                        System.out.println(volleyError.toString());
+                                    }
+                                });
+                                requestQueue1.add(jsonObjectRequest);
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -179,7 +249,9 @@ public class InsertOwnerFuelInfo extends AppCompatActivity {
                         System.out.println(volleyError.toString());
                     }
                 });
-                requestQueue1.add(jsonObjectRequest);
+
+                requestQueue1.add(jsonArrayRequest);
+
             }
         });
 
@@ -205,7 +277,6 @@ public class InsertOwnerFuelInfo extends AppCompatActivity {
             }
         });
         editTextStationName.setEnabled(false);
-        getEditTextStationNo.setEnabled(false);
 
         arrivalTime.setEnabled(false);
 
@@ -281,25 +352,6 @@ public class InsertOwnerFuelInfo extends AppCompatActivity {
 //        requestQueue1.add(jsonObjectRequest);
 //    }
 
-
-    //get detail of a single fuel station
-    private void checkData(String stationIdNew) {
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String status;
-        String url = "https://192.168.1.5:4432/api/fuelInfo/FuelDetails/GetOneStation/" + stationIdNew;
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                String res = response.toString();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-        queue.add(stringRequest);
-    }
 
     @SuppressLint("Range")
     private void loadData() {

@@ -48,7 +48,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, UpdateFuelDetails.class);
+                Intent intent = new Intent(context, EditFuelInfo.class);
                 intent.putExtra("id", fuels.get(position).getFuelId());
                 intent.putExtra("StationId", fuels.get(position).getStationId());
                 intent.putExtra("fuelName", fuels.get(position).getFuelType());
