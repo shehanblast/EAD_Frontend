@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="10dp"
-    android:background="@drawable/background3"
+    android:background="@drawable/background4"
     tools:context=".FuelHandler.ShowFuelStationInfo">
 
     <ScrollView
@@ -34,12 +33,12 @@
                 android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textSize="30dp"/>
+                android:textSize="25dp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="70dp"
                 android:layout_marginLeft="10dp"
                 android:text="Station Name"
                 android:textAlignment="textStart"

@@ -47,7 +47,7 @@ public class ProfileOwner extends AppCompatActivity {
         mobileEditText = findViewById(R.id.txtOwnerProfilesMobile);
         roleEditText = findViewById(R.id.txtOwnerProfilesRole);
         StationNameEditText = findViewById(R.id.txtOwnerProfilesStationName);
-        StationNoEditText = findViewById(R.id.txtOwnerProfilesStationNo);
+//        StationNoEditText = findViewById(R.id.txtOwnerProfilesStationNo);
         cityEditText = findViewById(R.id.txtOwnerProfilesCity);
         addressEditText = findViewById(R.id.txtOwnerProfilesAddress);
         update = findViewById(R.id.btnOwnerProfileUpdate);
@@ -96,10 +96,10 @@ public class ProfileOwner extends AppCompatActivity {
                 String city = cityEditText.getText().toString();
                 String address = addressEditText.getText().toString();
                 String stationName = StationNameEditText.getText().toString();
-                String stationNo = StationNoEditText.getText().toString();
+//                String stationNo = StationNoEditText.getText().toString();
 
 
-                boolean status = updateData(name, mobile, city, address, stationName, stationNo, id);
+                boolean status = updateData(name, mobile, city, address, stationName, id);
                 if (status == true) {
                     Toast.makeText(ProfileOwner.this, "Update SuccessFully", Toast.LENGTH_SHORT).show();
 //                    Intent intent = new Intent(getApplicationContext(), OwnerDashboard.class);
@@ -113,14 +113,14 @@ public class ProfileOwner extends AppCompatActivity {
         loadData();
     }
 
-    private boolean updateData(String name, String mobile, String city, String address, String stationName, String stationNo, String id) {
+    private boolean updateData(String name, String mobile, String city, String address, String stationName, String id) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(SQLHelper.Table_Column_1_Name, name);
         contentValues.put(SQLHelper.Table_Column_3_Mobile, mobile);
         contentValues.put(SQLHelper.Table_Column_6_CIty, city);
         contentValues.put(SQLHelper.Table_Column_7_Address, address);
         contentValues.put(SQLHelper.Table_Column_8_StationName, stationName);
-        contentValues.put(SQLHelper.Table_Column_9_StationNo, stationNo);
+//        contentValues.put(SQLHelper.Table_Column_9_StationNo, stationNo);
 
         return sqLiteDatabaseObj.update(SQLHelper.TABLE_NAME, contentValues, SQLHelper.Table_Column_ID + "=?", new String[]{id}) > 0;
     }
@@ -147,14 +147,14 @@ public class ProfileOwner extends AppCompatActivity {
                 String stNo = cursor.getString(cursor.getColumnIndex(SQLHelper.Table_Column_9_StationNo));
                 String role = cursor.getString(cursor.getColumnIndex(SQLHelper.Table_Column_12_RoleType));
 
-                fullnameEditText.setText(name);
-                emailEditText.setText(email);
-                mobileEditText.setText(mobile);
-                roleEditText.setText(role);
-                cityEditText.setText(city);
-                addressEditText.setText(address);
-                StationNameEditText.setText(stName);
-                StationNoEditText.setText(stNo);
+                fullnameEditText.setText(" " + name);
+                emailEditText.setText(" " + email);
+                mobileEditText.setText(" " + mobile);
+                roleEditText.setText(" " + role);
+                cityEditText.setText(" " + city);
+                addressEditText.setText(" " + address);
+                StationNameEditText.setText(" " + stName);
+//                StationNoEditText.setText(stNo);
 
                 // Closing cursor.
                 cursor.close();

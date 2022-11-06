@@ -4,8 +4,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-android:layout_margin="10dp"
-android:background="@drawable/background3"
+android:background="@drawable/background4"
 android:orientation="vertical"
 tools:context=".FuelHandler.FuelStation">
 
@@ -27,7 +26,8 @@ tools:context=".FuelHandler.FuelStation">
         android:id="@+id/lblFuelStation"
         android:layout_width="271dp"
         android:layout_height="68dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="-50px"
         android:fontFamily="sans-serif-black"
         android:text="Fuel Station"
         android:textColor="#FBFBFB"
@@ -43,9 +43,9 @@ tools:context=".FuelHandler.FuelStation">
         android:id="@+id/fuelLblNearestCity"
         android:layout_width="375dp"
         android:layout_height="36dp"
-        android:layout_margin="10dp"
         android:layout_marginTop="10dp"
         android:text="Nearest city"
+        android:layout_marginLeft="10px"
         android:textColor="#0F0F0F"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -58,21 +58,22 @@ tools:context=".FuelHandler.FuelStation">
     <Spinner
         android:id="@+id/ddFuelStationCity"
         android:layout_width="373dp"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="25px"
         android:background="@drawable/round_border"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintHorizontal_bias="0.131"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.63" />
+        app:layout_constraintVertical_bias="0.593" />
 
     <TextView
         android:id="@+id/fuelStationLblStation"
-        android:layout_width="356dp"
+        android:layout_width="375dp"
         android:layout_height="36dp"
-        android:layout_margin="10dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40px"
         android:text="Station"
         android:textColor="#0F0F0F"
         android:textColorHint="#FFFBFB"
@@ -85,14 +86,15 @@ tools:context=".FuelHandler.FuelStation">
     <Spinner
         android:id="@+id/ddUserFuelStationCity"
         android:layout_width="373dp"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="35px"
         android:background="@drawable/round_border"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.448" />
+        app:layout_constraintTop_toBottomOf="@+id/fuelLblNearestCity"
+        app:layout_constraintVertical_bias="0.017" />
 
     <TextView
         android:id="@+id/fuelStationLblFuelType"
@@ -106,20 +108,23 @@ tools:context=".FuelHandler.FuelStation">
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/ddUserFuelTypeStation"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.317"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ddFuelStationCity" />
+        app:layout_constraintTop_toBottomOf="@+id/ddFuelStationCity"
+        app:layout_constraintVertical_bias="0.151" />
 
     <Spinner
         android:id="@+id/ddUserFuelTypeStation"
         android:layout_width="373dp"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="25px"
         android:background="@drawable/round_border"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.342"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.808" />
+        app:layout_constraintVertical_bias="0.741" />
 
     <Button
         android:id="@+id/btnFuelStationNext"

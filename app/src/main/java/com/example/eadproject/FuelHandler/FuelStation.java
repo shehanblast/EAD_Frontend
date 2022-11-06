@@ -243,7 +243,6 @@ public class FuelStation extends AppCompatActivity {
         }
     }
     private void checkFuelDetailsforStation(String station, String email, String id, String fuelType, String city) {
-        System.out.println("inside on click");
         String url = "https://192.168.1.5:44323/api/fuelStation/FuelStation";
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override

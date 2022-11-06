@@ -15,6 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.example.eadproject.QueueHandler.ShowQueueTotal;
 import com.example.eadproject.R;
 import com.example.eadproject.UserPanel.Panel;
 import org.json.JSONArray;
@@ -50,7 +53,7 @@ import com.android.volley.toolbox.Volley;
 public class ShowFuelStationInfo extends AppCompatActivity {
 
     private Spinner spinnerFuelStation,spinnerFuelType,spinnerFuelCity;
-    private String fuelType, city, station,email,id;
+    private String fuelType, city, station,email,id,stationId;
     private Button backButton;
     ArrayList<String> spinnerArray = new ArrayList<>();
     ArrayList<String> spinnerArray2 = new ArrayList<>();
@@ -72,7 +75,7 @@ public class ShowFuelStationInfo extends AppCompatActivity {
         arrivalTextViewTime= findViewById(R.id.txtViewFuelStationArrivalTime);
         fuelFinishTextView= findViewById(R.id.txtViewFuelStationFinishFuel);
         layout = findViewById(R.id.viewFuellayer);
-        layout.setVisibility(View.VISIBLE);
+        layout.setVisibility(View.INVISIBLE);
 
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.fuelType, android.R.layout.simple_spinner_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -147,6 +150,7 @@ public class ShowFuelStationInfo extends AppCompatActivity {
         requestQueue.add(jsonArrayRequest);
 
 
+
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -173,49 +177,67 @@ public class ShowFuelStationInfo extends AppCompatActivity {
     }
 
     private void checkArriavalTime(String station, String fuel) {
-        String url = "https://192.168.1.5:44323/api/fuelInfo/fuelInfo/FetchFuelInfoFromStationAndFuel?sId="+ station +"&fName=" + fuel;
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+
+        //get fuel station id
+        String url1 = "https://192.168.1.5:44323/api/fuelStation/FuelStation/FetchStationIdAccordingtoName?name="+station;
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url1, new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONArray response) {
-                System.out.println(response.toString());
-
-                if(fuelType.matches("choose")){
-                    layout.setVisibility(View.VISIBLE);
-
-                }
-                else{
-                    if(response.length() == 0){
-                        layout.setVisibility(View.VISIBLE);
-                        arrivalTextViewTime.setText("");
-                        fuelFinishTextView.setText("");
-                    }
-                    else{
-                        try {
-                            JSONObject object = response.getJSONObject(0);
-
-                        String arrivalTime = object.getString("arrivalTime");
-                        String status = object.getString("status");
-                            arrivalTextViewTime.setText(arrivalTime);
-                            fuelFinishTextView.setText(status);
+            public void onResponse(String response) {
 
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                stationId = response;
+
+                System.out.println("sid"+stationId);
+                System.out.println("fuel"+fuel);
+                String url = "https://192.168.1.5:44323/api/fuelInfo/fuelInfo/FetchFuelInfoFromStationAndFuel?sId="+ stationId +"&fName=" + fuel;
+                JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        System.out.println(response.toString());
+                        System.out.println("if" +fuelType.matches("choose"));
+                        if(!fuelType.matches("choose")){
+
+                            layout.setVisibility(View.VISIBLE);
+                            if(response.length() != 0){
+                                try {
+                                    JSONObject object = response.getJSONObject(0);
+
+                                    String arrivalTime = object.getString("arrivalTime");
+                                    String status = object.getString("status");
+                                    arrivalTextViewTime.setText(arrivalTime);
+                                    fuelFinishTextView.setText(status);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            else{
+                                layout.setVisibility(View.INVISIBLE);
+                                arrivalTextViewTime.setText("");
+                                fuelFinishTextView.setText("");
+                            }
                         }
                     }
-                }
-
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        System.out.println(volleyError.toString());
+                    }
+                });
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                requestQueue.add(jsonArrayRequest);
 
             }
         }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                System.out.println(volleyError.toString());
+            public void onErrorResponse(VolleyError error) {
+
             }
         });
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        requestQueue.add(jsonArrayRequest);
+        RequestQueue requestQueue1 = Volley.newRequestQueue(getApplicationContext());
+        requestQueue1.add(stringRequest);
+
+
     }
 
     private void LoadFuelDetails(String stationId, String stationNo, String fuel) {

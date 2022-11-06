@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.EADProject" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/darkblue</item>
-        <item name="colorPrimaryVariant">@color/darkblue</item>
+        <item name="colorPrimary">#E44B0F</item>
+        <item name="colorPrimaryVariant">#E4530F</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>

@@ -221,10 +221,16 @@ public class Registration extends AppCompatActivity {
     public void InsertDataIntoSQLiteDatabase(){
         if(EditTextEmptyHolder == true)
         {
-            SQLiteDataBaseQueryHolder = "INSERT INTO " + SQLHelper.TABLE_NAME +" (name,email,mobileNo,vehicleNo1,vehicleNo2,city,address,stationName,stationNo,vehicleType,fuelType,role,password) VALUES('" +name +"', '" +email +"', '" +mobile +"', '" +vehicleNo1 +"', '" +vehicleNo2 +"', '" +city +"', '" +address +"', '" +stationName +"', '" +stationNo +"', '" +vehicleType +"', '" +fuelType +"', '" +role +"', '" +password +"');";
-            sqLiteDatabaseObj.execSQL(SQLiteDataBaseQueryHolder);
-            sqLiteDatabaseObj.close();
-            Toast.makeText(Registration.this,"Successfully Registered!", Toast.LENGTH_LONG).show();
+            if(android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                SQLiteDataBaseQueryHolder = "INSERT INTO " + SQLHelper.TABLE_NAME +" (name,email,mobileNo,vehicleNo1,vehicleNo2,city,address,stationName,stationNo,vehicleType,fuelType,role,password) VALUES('" +name +"', '" +email +"', '" +mobile +"', '" +vehicleNo1 +"', '" +vehicleNo2 +"', '" +city +"', '" +address +"', '" +stationName +"', '" +stationNo +"', '" +vehicleType +"', '" +fuelType +"', '" +role +"', '" +password +"');";
+                sqLiteDatabaseObj.execSQL(SQLiteDataBaseQueryHolder);
+                sqLiteDatabaseObj.close();
+                Toast.makeText(Registration.this,"Successfully Registered!", Toast.LENGTH_LONG).show();
+            }
+            else{
+                Toast.makeText(Registration.this,"Invalid email!", Toast.LENGTH_LONG).show();
+            }
+
         }
         else {
             Toast.makeText(Registration.this,"Required Fields cannot be empty!", Toast.LENGTH_LONG).show();

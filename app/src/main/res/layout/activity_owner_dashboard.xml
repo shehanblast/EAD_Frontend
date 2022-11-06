@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/background3"
+    android:background="@drawable/background4"
     android:id="@+id/ownerDashboardRefresh"
     tools:context=".OwnerHandler.OwnerPanel">
 
@@ -24,6 +24,16 @@
             app:layout_constraintHorizontal_bias="0.951"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/logout" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginTop="208dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/fs"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            tools:layout_editor_absoluteX="0dp" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -152,12 +162,12 @@
                         android:textSize="25dp"
                         android:textStyle="bold" />
 
-                    <!--                    <ImageView-->
-                    <!--                        android:id="@+id/imageView3ProfileOwner"-->
-                    <!--                        android:layout_width="85dp"-->
-                    <!--                        android:layout_height="85dp"-->
-                    <!--                        android:layout_centerHorizontal="true"-->
-                    <!--                        android:layout_marginTop="15dp" />-->
+                                        <ImageView
+                                            android:id="@+id/imageView3ProfileOwner"
+                                            android:layout_width="85dp"
+                                            android:layout_height="85dp"
+                                            android:layout_centerHorizontal="true"
+                                            android:layout_marginTop="15dp" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>

@@ -30,14 +30,12 @@ public class ShowFuelInfo extends AppCompatActivity {
         city = getIntent().getStringExtra("city");
 
         textViewStation = findViewById(R.id.txtViewFuelDetails);
-        textViewCity = findViewById(R.id.txtViewFuelStationNo);
         textViewFuel = findViewById(R.id.txtViewFuelDetailsFuelType);
         textViewArrivalTime = findViewById(R.id.txtViewFuelStationArrivalTime);
         textViewFinishTime = findViewById(R.id.txtViewFuelStationFinishFuel);
         back = findViewById(R.id.btnViewQueue2);
 
         textViewStation.setText(station);
-        textViewCity.setText(city);
         textViewFuel.setText(fuel);
 
         back.setOnClickListener(new View.OnClickListener() {

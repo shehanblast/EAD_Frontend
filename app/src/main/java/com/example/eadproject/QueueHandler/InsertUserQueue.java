@@ -2,11 +2,15 @@ package com.example.eadproject.QueueHandler;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -15,6 +19,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.eadproject.R;
+import com.example.eadproject.UserPanel.Panel;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -69,6 +75,7 @@ public class InsertUserQueue extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
+                System.out.println("queueId" + " " +queueId);
                 String url = "https://192.168.1.5:44323/api/queue/vehicleQueue/" + queueId;
 //                String obj = "{'queueDepartureTime': '" + "2022-10-28T17:19:38.731Z" + "'}";
 //                String obj = "{'StationId': '" +
@@ -86,7 +93,7 @@ public class InsertUserQueue extends AppCompatActivity {
                         java.time.LocalDateTime.now() +
                         "' }";
 
-                System.out.println(java.time.LocalDateTime.now());
+
                 JSONObject jsonObject = null;
                 try {
                     jsonObject = new JSONObject(obj);
@@ -97,6 +104,13 @@ public class InsertUserQueue extends AppCompatActivity {
                 JsonObjectRequest jsonObjectRequest =  new JsonObjectRequest(Request.Method.PATCH, url, jsonObject, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+
+//                        Intent intent = new Intent(InsertUserQueue.this, Panel.class);
+//                        // Sending Email to Dashboard Activity using intent.
+//               //         intent.putExtra("email", email);
+//                        intent.putExtra("id", id);
+//                        startActivity(intent);
+                        Toast.makeText(InsertUserQueue.this, "Departure time updated!", Toast.LENGTH_SHORT).show();
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -107,6 +121,8 @@ public class InsertUserQueue extends AppCompatActivity {
 
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 requestQueue.add(jsonObjectRequest);
+
+
             }
         });
     }

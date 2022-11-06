@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/background3"
-    android:layout_margin="10dp"
+    android:background="@drawable/background4"
+
     tools:context=".OwnerHandler.InsertOwnerFuelInfo">
 
     <ImageView
@@ -23,11 +23,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:fontFamily="sans-serif-black"
-        android:text="Add Fuel Details"
+        android:text="Add/UPDATE Fuel Details"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/white"
-        android:textSize="30dp"/>
+        android:textSize="23dp"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -40,7 +40,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="80dp"
                 android:layout_marginLeft="10dp"
                 android:text="Station Name"
                 android:textAlignment="textStart"
@@ -59,7 +59,7 @@
                     android:layout_width="373dp"
                     android:layout_height="60dp"
                     android:background="@drawable/round_border"
-                    android:hint="Station Name"
+                    android:hint=" Station Name"
                     android:textAlignment="textStart"
                     android:textColor="@color/black" />
             </LinearLayout>
@@ -136,7 +136,7 @@
                     android:layout_width="373dp"
                     android:layout_height="60dp"
                     android:background="@drawable/round_border"
-                    android:hint="Arrival Time"
+                    android:hint=" Arrival Time"
                     android:inputType="datetime"
                     android:textAlignment="textStart"
                     android:textColor="@color/black" />
@@ -184,7 +184,7 @@
                 android:layout_height="60dp"
                 android:background="@drawable/round_border"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:text="View Fuel details"
                 android:textColor="#EDE8E8"

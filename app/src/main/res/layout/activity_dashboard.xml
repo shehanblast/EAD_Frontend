@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background3"
+    android:background="@drawable/background4"
     android:id="@+id/dashboardRefresh"
     tools:context=".UserPanel.Panel">
 
@@ -104,14 +104,14 @@
                             android:id="@+id/textView3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:textAllCaps="true"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="35dp"
-                            android:textAlignment="center"
-                            android:textColor="@color/white"
                             android:text="Fuel    Details"
-                            android:textSize="25dp" />
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white"
+                            android:textSize="25dp"
+                            android:textStyle="bold" />
 
                         <!--                    <ImageView-->
                         <!--                        android:id="@+id/bus"-->

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background3"
+    android:background="@drawable/background4"
     android:orientation="vertical"
     tools:context=".QueueHandler.InsertUserQueue">
 
@@ -15,18 +15,21 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="30dp"
         android:src="@drawable/flame"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+
+
     <TextView
         android:id="@+id/lblAddQueueDataYourTime"
         android:layout_width="376dp"
         android:layout_height="29dp"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:text="Your Time"
@@ -35,7 +38,7 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/txtAddQueueDataQueueLength"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblAddQueueData"
         app:layout_constraintVertical_bias="1.0" />
@@ -51,9 +54,10 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.388"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.475" />
+        app:layout_constraintVertical_bias="0.48" />
 
     <EditText
         android:id="@+id/txtAddQueueDataQueueLength"
@@ -72,10 +76,10 @@
         android:textColorHint="#AFA4A4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.397" />
+        app:layout_constraintVertical_bias="0.399" />
 
     <EditText
         android:id="@+id/txtAddQueueDataYourTime"
@@ -94,10 +98,10 @@
         android:textColorHint="#AFA4A4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.548"
+        app:layout_constraintVertical_bias="0.557"
         app:passwordToggleEnabled="true" />
 
     <Button
@@ -136,16 +140,13 @@
         android:id="@+id/lblAddQueueData"
         android:layout_width="wrap_content"
         android:layout_height="69dp"
-        android:layout_marginBottom="524dp"
+        android:layout_marginTop="-30px"
+        android:layout_marginStart="104dp"
         android:fontFamily="sans-serif-black"
         android:text="Queue Data"
         android:textColor="#FBFBFB"
         android:textSize="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.541"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/applogo"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/applogo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

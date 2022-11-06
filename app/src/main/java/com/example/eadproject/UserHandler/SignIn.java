@@ -74,23 +74,30 @@ public class SignIn extends AppCompatActivity {
     @SuppressLint("Range")
     private void LoginFunction() {
         if (EditTextEmptyHolder) {
-            sqLiteDatabaseObj = DB.getWritableDatabase();
-            cursor = sqLiteDatabaseObj.query(SQLHelper.TABLE_NAME,
-                    null,
-                    " " + SQLHelper.Table_Column_2_Email + "=?",
-                    new String[]{email},
-                    null,
-                    null,
-                    null);
-            while (cursor.moveToNext()) {
-                if (cursor.isFirst()) {
-                    cursor.moveToFirst();
-                    TempPassword = cursor.getString(cursor.getColumnIndex(SQLHelper.Table_Column_13_Password));
-                    Role = cursor.getString(cursor.getColumnIndex(SQLHelper.Table_Column_12_RoleType));
-                    cursor.close();
+            if(android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                sqLiteDatabaseObj = DB.getWritableDatabase();
+                cursor = sqLiteDatabaseObj.query(SQLHelper.TABLE_NAME,
+                        null,
+                        " " + SQLHelper.Table_Column_2_Email + "=?",
+                        new String[]{email},
+                        null,
+                        null,
+                        null);
+                while (cursor.moveToNext()) {
+                    if (cursor.isFirst()) {
+                        cursor.moveToFirst();
+                        TempPassword = cursor.getString(cursor.getColumnIndex(SQLHelper.Table_Column_13_Password));
+                        Role = cursor.getString(cursor.getColumnIndex(SQLHelper.Table_Column_12_RoleType));
+                        cursor.close();
+                    }
                 }
+                CheckFinalResult();
+                EmptyEditTextAfterDataInsert();
             }
-            CheckFinalResult();
+            else{
+                Toast.makeText(SignIn.this, "invalid email!", Toast.LENGTH_LONG).show();
+            }
+
         } else {
             Toast.makeText(SignIn.this, "Enter UserName or Password.", Toast.LENGTH_LONG).show();
         }
@@ -105,6 +112,7 @@ public class SignIn extends AppCompatActivity {
             EditTextEmptyHolder = true;
         }
     }
+
 
     public void CheckFinalResult() {
         if (TempPassword.equalsIgnoreCase(password)) {

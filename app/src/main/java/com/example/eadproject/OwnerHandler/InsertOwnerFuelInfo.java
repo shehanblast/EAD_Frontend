@@ -135,7 +135,7 @@ public class InsertOwnerFuelInfo extends AppCompatActivity {
                     String sId = object.getString("stationId");
                     stationId = sId;
                     System.out.println("id-------"+sId);
-                    editTextStationName.setText(name);
+                    editTextStationName.setText(" " + name);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -168,10 +168,11 @@ public class InsertOwnerFuelInfo extends AppCompatActivity {
                         status +
                         " }";
                 ;
-
+                System.out.println("lol name" + " " + stationId);
+                System.out.println("lol fuelType" + " " + fuelType);
 
                 //check wheather the fuel info already exists in the table
-                String url = "https://192.168.1.5:44323/api/fuelInfo/fuelInfo/FetchFuelInfoFromStationAndFuel?sId=" + editTextStationName.getText().toString() + "&fName=" + fuelType;
+                String url = "https://192.168.1.5:44323/api/fuelInfo/fuelInfo/FetchFuelInfoFromStationAndFuel?sId=" + stationId + "&fName=" + fuelType;
                 JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
                     boolean queueStatus = false;
                     @Override
@@ -185,7 +186,11 @@ public class InsertOwnerFuelInfo extends AppCompatActivity {
                                 //if exists update the arrival time
                                 String fid = object.getString("fuelInfoId");
                                 String url4 = "https://192.168.1.5:44323/api/fuelInfo/fuelInfo/updateArrivalTime/" + fid;
-                                String obj = "{'arrivalTime': '" + java.time.LocalDateTime.now() + "' }";
+                                String obj  = "{'arrivalTime': '" +
+                                        java.time.LocalDateTime.now() +
+                                        "','status': " +
+                                        status +
+                                        " }";
 
                                 JSONObject jsonObject = null;
                                 System.out.println("obj" + " " + obj);
@@ -283,7 +288,7 @@ public class InsertOwnerFuelInfo extends AppCompatActivity {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
         LocalDateTime now = LocalDateTime.now();
         String time = dtf.format(now);
-        arrivalTime.setText(time);
+        arrivalTime.setText(" " + time);
         //loadData();
     }
 
@@ -365,8 +370,8 @@ public class InsertOwnerFuelInfo extends AppCompatActivity {
                 String stName = cursor.getString(cursor.getColumnIndex(SQLHelper.Table_Column_8_StationName));
                 String stNo = cursor.getString(cursor.getColumnIndex(SQLHelper.Table_Column_9_StationNo));
 
-                editTextStationName.setText(stName);
-                getEditTextStationNo.setText(stNo);
+                editTextStationName.setText(" " + stName);
+                getEditTextStationNo.setText(" " + stNo);
 
                 // Closing cursor.
                 cursor.close();

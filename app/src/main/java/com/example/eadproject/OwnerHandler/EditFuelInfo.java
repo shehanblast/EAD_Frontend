@@ -142,16 +142,16 @@ public class EditFuelInfo extends AppCompatActivity {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm");
         LocalDateTime now = LocalDateTime.now();
         String time = dtf.format(now);
-        editArrivalTime.setText(time);
+        editArrivalTime.setText(" " + time);
 
         if (fuelStatus.equals("true")) {
             fuelStatus1 = "Yes";
         } else {
             fuelStatus1 = "No";
         }
-        textView.setText(fuelStatus1);
+        textView.setText(" " + fuelStatus1);
 
-        FuelType.setText(fuelName);
+        FuelType.setText(" " + fuelName);
 
 
         //fetch all FuelStation Details
@@ -162,7 +162,7 @@ public class EditFuelInfo extends AppCompatActivity {
                 try {
                     JSONObject object = response.getJSONObject(0);
                     String obj = object.getString("stationName");
-                    editName.setText(obj);
+                    editName.setText(" " + obj);
 
 
 //                    for (int i = 0; i < response.length(); i++) {

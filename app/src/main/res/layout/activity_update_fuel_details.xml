@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background3"
+    android:background="@drawable/background4"
     android:orientation="vertical"
     tools:context=".OwnerHandler.EditFuelInfo">
 
@@ -39,7 +39,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="70dp"
                 android:layout_marginLeft="10dp"
                 android:text="Station Name"
                 android:textAlignment="textStart"
@@ -58,7 +58,7 @@
                     android:layout_width="373dp"
                     android:layout_height="60dp"
                     android:background="@drawable/round_border"
-                    android:hint="Station Name"
+                    android:hint=" Station Name"
                     android:textAlignment="textStart"
                     android:textColor="@color/black" />
             </LinearLayout>
@@ -134,7 +134,7 @@
                     android:layout_width="373dp"
                     android:layout_height="60dp"
                     android:background="@drawable/round_border"
-                    android:hint="Arrival Time"
+                    android:hint=" Arrival Time"
                     android:inputType="datetime"
                     android:textAlignment="textStart"
                     android:textColor="@color/black" />
@@ -210,6 +210,7 @@
                 android:background="@drawable/round_border"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginTop="30px"
                 android:text="Back"
                 android:textColor="#EDE8E8"/>
         </LinearLayout>

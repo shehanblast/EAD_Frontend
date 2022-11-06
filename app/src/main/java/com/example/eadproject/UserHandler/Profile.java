@@ -147,13 +147,13 @@ public class Profile extends AppCompatActivity {
                 String fuelType = cursor.getString(cursor.getColumnIndex(SQLHelper.Table_Column_11_FuelType));
                 String role = cursor.getString(cursor.getColumnIndex(SQLHelper.Table_Column_12_RoleType));
 
-                fullnameEditText.setText(name);
-                emailEditText.setText(email);
-                mobileEditText.setText(mobile);
-                roleEditText.setText(role);
-                vehicleNoEditText.setText(vehicleNo1 + "-" + vehicleNo2);
-                vehicleTypeEditText.setText(vehicleType);
-                fuelTypeEditText.setText(fuelType);
+                fullnameEditText.setText(" " + name);
+                emailEditText.setText(" " + email);
+                mobileEditText.setText(" " + mobile);
+                roleEditText.setText(" " + role);
+                vehicleNoEditText.setText(" " + vehicleNo1 + "-" + vehicleNo2);
+                vehicleTypeEditText.setText(" " + vehicleType);
+                fuelTypeEditText.setText(" " + fuelType);
 
                 // Closing cursor.
                 cursor.close();
