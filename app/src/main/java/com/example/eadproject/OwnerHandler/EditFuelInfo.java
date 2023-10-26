@@ -144,7 +144,7 @@ public class EditFuelInfo extends AppCompatActivity {
         String time = dtf.format(now);
         editArrivalTime.setText(" " + time);
 
-        if (fuelStatus.equals("true")) {
+        if ("true".equals(fuelStatus)) {
             fuelStatus1 = "Yes";
         } else {
             fuelStatus1 = "No";

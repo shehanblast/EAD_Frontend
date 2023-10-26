@@ -291,7 +291,7 @@ public class Registration extends AppCompatActivity {
     }
 
     public void CheckFinalResult(){
-        if(F_Result.equalsIgnoreCase("Email Found"))
+        if("Email Found".equalsIgnoreCase(F_Result))
         {
             Toast.makeText(Registration.this,"Email Exists",Toast.LENGTH_LONG).show();
         }

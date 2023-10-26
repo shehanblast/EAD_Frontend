@@ -118,11 +118,11 @@ public class SignIn extends AppCompatActivity {
         if (TempPassword.equalsIgnoreCase(password)) {
             Toast.makeText(SignIn.this, "Successfully logged in", Toast.LENGTH_LONG).show();
             System.out.println(Role);
-            if(Role.equals("User")){
+            if("User".equals(Role)){
                 Intent intent = new Intent(SignIn.this, Panel.class);
                 intent.putExtra("email", email);
                 startActivity(intent);
-            }else if(Role.equals("Owner")){
+            }else if("Owner".equals(Role)){
                 Intent intent = new Intent(SignIn.this, OwnerPanel.class);
                 intent.putExtra("email", email);
                 startActivity(intent);

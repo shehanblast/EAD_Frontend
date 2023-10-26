@@ -229,7 +229,7 @@ public class FuelStation extends AppCompatActivity {
     //validation check
     private void validityCheck(String station1, String fuelType1, String city1) {
         System.out.println(fuelType1);
-        if(station1.equals("") || station1.equals(null) || fuelType1.equals("") || fuelType1.equals(null) || city1.equals(null) || fuelType1.matches("Choose")){
+        if("".equals(station1) || station1.equals(null) || "".equals(fuelType1) || fuelType1.equals(null) || city1.equals(null) || fuelType1.matches("Choose")){
             Toast.makeText(this, "Please Select the items", Toast.LENGTH_SHORT).show();
         }else{
 //            Intent intent = new Intent(getApplicationContext(), ShowQueueTotal.class);
